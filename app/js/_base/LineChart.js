@@ -1,44 +1,53 @@
 
 var ChartJS = require('chart.js');
-// ChartJS.defaults.global.responsive = true;
 ChartJS.defaults.global.showTooltips = false;
 
 var LineChart = React.createClass({
   displayName: 'LineChart',
+  propTypes: {
+    data: React.PropTypes.object.isRequired
+  },
 
+  // create
   componentDidMount: function() {
     this._initializeChart(this.props);
   },
 
+  // recreate
   componentWillReceiveProps: function(nextProps) {
     var chart = this.state.chart;
     chart.destroy();
     this._initializeChart(nextProps);
   },
 
+  // destroy
   componentWillUnmount: function() {
     var chart = this.state.chart;
     chart.destroy();
   },
 
+  // set state to a new instance of ChartJS
   _initializeChart: function(nextProps) {
     var el = this.getDOMNode();
     var ctx = el.getContext('2d');
-    var chart = new ChartJS(ctx).Line(nextProps.data, nextProps.options || {});
+    var chartOptions = {
+      scaleShowGridLines: false,
+      pointDot: false
+    };
+
+    var chart = new ChartJS(ctx).Line(nextProps.data, chartOptions);
 
     this.setState({chart: chart});
   },
 
   render: function() {
-    var _props = {};
-    for (var name in this.props) {
-      if (this.props.hasOwnProperty(name)) {
-        if (name !== 'data' && name !== 'options') {
-          _props[name] = this.props[name];
-        }
-      }
-    }
-    return React.createElement('canvas', _props);
+    // set canvas size
+    var canvasProps = {
+      width: '800px',
+      height: '300px'
+    };
+
+    return React.createElement('canvas', canvasProps);
   }
 });
 

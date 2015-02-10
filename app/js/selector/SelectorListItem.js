@@ -20,12 +20,14 @@ var SelectorListItem = React.createClass({
     };
   },
 
+  // identify selected item
   _onSelected: function(chartId) {
     this.setState({
       selected: chartId === this.props.chartId
     });
   },
 
+  // select the chart type
   _onClick: function() {
     SelectorActions.select(this.props.chartId);
   },

@@ -7,6 +7,7 @@ var SelectorActions = Reflux.createActions([
   'select'
 ]);
 
+// load the selected chart
 SelectorActions.select.preEmit = function(chartId) {
   ChartActions.load(chartId);
 };

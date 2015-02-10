@@ -21,7 +21,7 @@ var ChartStore = Reflux.createStore({
     }
   },
 
-  // transform returned data and cache
+  // transform data returned from the server and cache
   _populateData: function(id) {
     var that = this;
 

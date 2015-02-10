@@ -1,12 +1,8 @@
 $font-text = "HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", "TeXGyreHerosRegular", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
 
+$color-white = #fff
 $color-light = #f8f8f8
 $color-dark = #2c3e50
-
-$break-1 = 600px
-$break-2 = 700px
-$break-3 = 800px
-$break-4 = 1000px
 
 html
   font-family $font-text
@@ -15,14 +11,18 @@ html
   background-color $color-light
   line-height 1.5
 
+h1
+  margin 2em 0
+
 .container
   clearfix()
   margin 0 auto
-  width 90%
+  width 800px
 
 .selector
   display flex
   padding 0
+  margin 3em 0
 
 .selector__item, .selector__item--selected
   flex-grow 1
@@ -34,4 +34,4 @@ html
   cursor pointer
 
 .selector__item--selected
-  text-decoration underline
+  background-color $color-white

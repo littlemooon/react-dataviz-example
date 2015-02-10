@@ -9,8 +9,8 @@ exports.init = function (app) {
   app.get('/api/chart/:id', getChart);
 };
 
+// request chart data
 var getChart = function(req, res) {
-  // request chart data
   return request
     .get('https://blockchain.info/charts/' + req.params.id)
     .query({format: 'json'})
@@ -27,14 +27,10 @@ var getChart = function(req, res) {
     });
 };
 
+// transform data for the client
 var transformData = function(data) {
-  var x = R.map(function(x) {
-    return x;
-  }, R.pluck('x', data));
-
-  var y = R.map(function(y) {
-    return y;
-  }, R.pluck('y', data));
+  var x = R.pluck('x', data);
+  var y = R.pluck('y', data);
 
   return {
     x: x,

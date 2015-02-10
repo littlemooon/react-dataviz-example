@@ -1,5 +1,6 @@
 
 module.exports = {
+  // return a new model
   create: function(id, name) {
     return {
       _id: id,

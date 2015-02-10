@@ -6,6 +6,7 @@ require('expose?React!react/addons');
 require('../css/main.styl');
 
 var SelectorList = require('./selector/SelectorList'),
+    Slider = require('./slider/Slider'),
     Chart = require('./chart/Chart');
 
 var App = React.createClass({
@@ -16,6 +17,7 @@ var App = React.createClass({
       <div className='container'>
         <h1>Bitcoin Statistics</h1>
         <SelectorList/>
+        <Slider/>
         <Chart/>
       </div>
     );

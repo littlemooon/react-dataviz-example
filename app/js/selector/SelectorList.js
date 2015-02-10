@@ -9,10 +9,12 @@ var SelectorListItem = require('./SelectorListItem'),
 var SelectorList = React.createClass({
   displayName: 'SelectorList',
 
+  // select the first chart type initially
   componentDidMount: function() {
     SelectorActions.select(ChartModel.getId(ChartTypes[0]));
   },
 
+  // render a list item for each chart type
   render: function() {
     return (
       <ul className='selector'>
