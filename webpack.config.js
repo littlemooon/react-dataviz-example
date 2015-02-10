@@ -2,7 +2,9 @@
 var webpack = require('webpack');
 
 module.exports = {
+  devServer: true,
   devtool: 'eval',
+  debug: true,
 
   entry: [
     'webpack-dev-server/client?http://localhost:3010',
@@ -12,7 +14,7 @@ module.exports = {
   output: {
     path: __dirname + '/dist/',
     filename: 'bundle.js',
-    publicPath: '/dist/'
+    publicPath: 'http://localhost:3010/dist/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

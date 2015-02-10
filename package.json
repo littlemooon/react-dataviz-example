@@ -5,7 +5,7 @@
   "main": "app/js/App.js",
   "scripts": {
     "start": "npm run dev | npm run serve",
-    "dev": "node webpack.js",
+    "dev": "node webpackServer.js",
     "serve": "node server.js"
   },
   "dependencies": {
