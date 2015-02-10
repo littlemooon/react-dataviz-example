@@ -4,8 +4,8 @@ var Reflux = require('reflux');
 var ChartLoader = require('./ChartLoader'),
     ChartActions = require('./ChartActions'),
     ChartStore = require('./ChartStore');
-
-var LineChartJs = require('react-chartjs').Line;
+var LineChartJs = require('../_base/LineChart');
+// var LineChartJs = require('react-chartjs').Line;
 
 var LineChart = React.createClass({
   displayName: 'LineChart',
