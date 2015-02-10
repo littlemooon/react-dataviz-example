@@ -1,0 +1,6 @@
+
+{
+  "esnext": true,
+  "validthis": true,
+  "node": true
+}

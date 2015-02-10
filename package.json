@@ -1,0 +1,41 @@
+{
+  "name": "react-dataviz-example",
+  "version": "1.0.0",
+  "description": "React - data visualisation example",
+  "main": "app/js/App.js",
+  "scripts": {
+    "start": "npm run dev | npm run serve",
+    "dev": "node webpack.js",
+    "serve": "node server.js"
+  },
+  "dependencies": {
+    "bluebird": "^2.9.6",
+    "express": "^4.11.2",
+    "immutable": "^3.6.2",
+    "ramda": "^0.9.1",
+    "react": "^0.12.2",
+    "react-chartjs": "^0.3.0",
+    "reflux": "^0.2.5",
+    "superagent": "^0.21.0",
+    "superagent-bluebird-promise": "^0.6.0"
+  },
+  "devDependencies": {
+    "css-loader": "^0.9.1",
+    "expose-loader": "^0.6.0",
+    "jsx-loader": "^0.12.2",
+    "nib": "^1.0.4",
+    "react": "^0.12.2",
+    "react-hot-loader": "^1.1.4",
+    "style-loader": "^0.8.3",
+    "stylus": "^0.49.3",
+    "stylus-loader": "^0.5.0",
+    "webpack": "^1.5.3",
+    "webpack-dev-server": "^1.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/littlemooon/react-dataviz-example.git"
+  },
+  "author": "Fred Wright",
+  "license": "MIT"
+}
