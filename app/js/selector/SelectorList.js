@@ -3,15 +3,15 @@ var Reflux = require('reflux');
 
 var SelectorListItem = require('./SelectorListItem'),
     SelectorActions = require('./SelectorActions'),
-    ChartModel = require('../chart/ChartModel'),
-    ChartTypes = require('../chart/ChartTypes');
+    ChartTypeModel = require('../chart/types/ChartTypeModel'),
+    ChartTypes = require('../chart/types/ChartTypes');
 
 var SelectorList = React.createClass({
   displayName: 'SelectorList',
 
   // select the first chart type initially
   componentDidMount: function() {
-    SelectorActions.select(ChartModel.getId(ChartTypes[0]));
+    SelectorActions.select(ChartTypeModel.getId(ChartTypes[0]));
   },
 
   // render a list item for each chart type
@@ -23,8 +23,8 @@ var SelectorList = React.createClass({
             return (
               <SelectorListItem
                 key={i}
-                chartId={ChartModel.getId(chartType)}
-                chartName={ChartModel.getName(chartType)}/>
+                chartId={ChartTypeModel.getId(chartType)}
+                chartName={ChartTypeModel.getName(chartType)}/>
             );
           })
         }

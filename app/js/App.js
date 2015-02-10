@@ -5,6 +5,9 @@ require('expose?React!react/addons');
 // main css
 require('../css/main.styl');
 
+var R = require('ramda'),
+    moment = require('moment');
+
 var SelectorList = require('./selector/SelectorList'),
     Slider = require('./slider/Slider'),
     Chart = require('./chart/Chart');

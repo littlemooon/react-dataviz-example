@@ -22,7 +22,11 @@ var Chart = React.createClass({
       contents = (<LineChart data={this.state.chartData}/>);
     }
 
-    return contents;
+    return (
+      <div className='chart'>
+        {contents}
+      </div>
+    );
   }
 });
 

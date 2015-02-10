@@ -4,6 +4,9 @@ $color-white = #fff
 $color-light = #f8f8f8
 $color-dark = #2c3e50
 
+$width = 800px
+$height = 300px
+
 html
   font-family $font-text
   font-size 18px
@@ -17,7 +20,7 @@ h1
 .container
   clearfix()
   margin 0 auto
-  width 800px
+  width $width
 
 .selector
   display flex
@@ -35,3 +38,21 @@ h1
 
 .selector__item--selected
   background-color $color-white
+
+.slider *
+  float left
+
+.slider__label
+  margin-right: 1em
+
+.slider__input
+  height 3em
+  width 100%
+  margin 0 0 3em 0
+
+.loader
+  float left
+  width $width
+  height $height
+  line-height $height
+  text-align center

@@ -4,7 +4,7 @@ var ChartLoader = React.createClass({
 
   render: function() {
     return (
-      <h3>LOADING...</h3>
+      <h3 className='loader'>LOADING...</h3>
     );
   }
 });

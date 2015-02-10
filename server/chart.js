@@ -1,5 +1,6 @@
 
-var R = require('ramda');
+var R = require('ramda'),
+    moment = require('moment');
 
 var request = require('superagent');
 require('superagent-bluebird-promise');
@@ -29,11 +30,33 @@ var getChart = function(req, res) {
 
 // transform data for the client
 var transformData = function(data) {
-  var x = R.pluck('x', data);
-  var y = R.pluck('y', data);
+  var agg = aggregate(data);
+  var dates = R.keys(agg);
+
+  var values = R.map(function(date) {
+    return agg[date].total / agg[date].count;
+  }, dates);
 
   return {
-    x: x,
-    y: y
+    x: dates,
+    y: values
   };
+};
+
+var aggregate = function(data) {
+    return R.foldl(function(acc, dataPoint) {
+    var day = moment(dataPoint.x, 'X').startOf('month').format("DD/MM/YY");
+
+    if (acc[day]) {
+      acc[day].total = acc[day].total + dataPoint.y;
+      acc[day].count = acc[day].count + 1;
+    } else {
+      acc[day] = {
+        total: dataPoint.y,
+        count: 1
+      };
+    }
+
+    return acc;
+  }, {}, data);
 };
