@@ -1,15 +1,16 @@
 
-// global react
+// globals
 require('expose?React!react/addons');
-require('expose?Chart!../../lib/Chart.js');
+require('expose?Chart!chart.js');
+
+// main css
+require('../css/main.styl');
+
 // Chart.defaults.global.responsive = true;
 // Chart.defaults.global.showTooltips = false;
 
-// global styles
-require('../css/main.styl');
-
 var SelectorList = require('./selector/SelectorList'),
-    Chart = require('./chart/Chart');
+    LineChart = require('./chart/LineChart');
 
 var App = React.createClass({
   displayName: 'App',
@@ -17,8 +18,9 @@ var App = React.createClass({
   render: function() {
     return (
       <div className='container'>
+        <h1>Bitcoin Statistics</h1>
         <SelectorList/>
-        <Chart/>
+        <LineChart/>
       </div>
     );
   }

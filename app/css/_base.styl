@@ -19,3 +19,19 @@ html
   clearfix()
   margin 0 auto
   width 90%
+
+.selector
+  display flex
+  padding 0
+
+.selector__item, .selector__item--selected
+  flex-grow 1
+  height 5em
+  line-height 5em
+  text-align center
+  list-style none
+  transition all 0.3s
+  cursor pointer
+
+.selector__item--selected
+  text-decoration underline

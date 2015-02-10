@@ -1,7 +1,7 @@
 
 var Reflux = require('reflux');
 
-var ChartActions = require('../chart/ChartActions'),
+var SelectorActions = require('./SelectorActions'),
     SelectorStore = require('./SelectorStore');
 
 var SelectorListItem = React.createClass({
@@ -21,13 +21,13 @@ var SelectorListItem = React.createClass({
   },
 
   _onSelected: function(chartId) {
-    if (chartId === this.props.chartId) {
-      this.setState({selected: true});
-    }
+    this.setState({
+      selected: chartId === this.props.chartId
+    });
   },
 
   _onClick: function() {
-    ChartActions.load(this.props.chartId);
+    SelectorActions.select(this.props.chartId);
   },
 
   render: function() {

@@ -5,10 +5,10 @@ var ChartLoader = require('./ChartLoader'),
     ChartActions = require('./ChartActions'),
     ChartStore = require('./ChartStore');
 
-var LineChart = require('react-chartjs').Line;
+var LineChartJs = require('react-chartjs').Line;
 
-var Chart = React.createClass({
-  displayName: 'Chart',
+var LineChart = React.createClass({
+  displayName: 'LineChart',
   mixins: [
     Reflux.connect(ChartStore, 'chartData')
   ],
@@ -18,7 +18,7 @@ var Chart = React.createClass({
 
     if (this.state.chartData) {
       contents = (
-        <LineChart
+        <LineChartJs
           data={this.state.chartData}
           options={chartOptions}
           width="600"
@@ -29,7 +29,7 @@ var Chart = React.createClass({
   }
 });
 
-module.exports = Chart;
+module.exports = LineChart;
 
 var chartOptions = {
   scaleShowGridLines: false,
