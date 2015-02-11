@@ -28,30 +28,11 @@ var ChartStore = Reflux.createStore({
     ChartService.get(id)
       .then(function(res) {
         console.log('Received data for: ' + id);
-        this.set(id, this._transformData(res.body));
+        this.set(id, res.body);
       }.bind(this))
       .catch(function(error) {
         console.log(error);
       });
-  },
-
-  // return a chartjs compatible data object
-  _transformData: function(data) {
-    return {
-      labels: data.x,
-      datasets: [
-        {
-          label: "My First dataset",
-          fillColor: "rgba(220,220,220,0.2)",
-          strokeColor: "rgba(220,220,220,1)",
-          pointColor: "rgba(220,220,220,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          data: data.y
-        }
-      ]
-    };
   }
 });
 

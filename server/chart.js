@@ -30,22 +30,16 @@ var getChart = function(req, res) {
 
 // transform data for the client
 var transformData = function(data) {
-  var agg = aggregate(data);
-  var dates = R.keys(agg);
+  var totals = totalsByDay(data);
+  var dates = R.keys(totals);
 
-  var values = R.map(function(date) {
-    return agg[date].total / agg[date].count;
-  }, dates);
-
-  return {
-    x: dates,
-    y: values
-  };
+  return averageForEachDay(dates, totals);
 };
 
-var aggregate = function(data) {
+// total data for each day
+var totalsByDay = function(data) {
     return R.foldl(function(acc, dataPoint) {
-    var day = moment(dataPoint.x, 'X').startOf('month').format("DD/MM/YY");
+    var day = moment(dataPoint.x, 'X').startOf('day').format("MM/DD/YY");
 
     if (acc[day]) {
       acc[day].total = acc[day].total + dataPoint.y;
@@ -59,4 +53,13 @@ var aggregate = function(data) {
 
     return acc;
   }, {}, data);
+};
+
+var averageForEachDay = function(dates, totals) {
+  return R.map(function(date) {
+    return {
+      x: date,
+      y: totals[date].total / totals[date].count
+    };
+  }, dates);
 };
