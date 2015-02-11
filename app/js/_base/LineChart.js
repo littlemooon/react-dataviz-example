@@ -1,6 +1,5 @@
 
-var ChartJS = require('chart.js');
-ChartJS.defaults.global.showTooltips = false;
+var d3 = require('d3');
 
 var LineChart = React.createClass({
   displayName: 'LineChart',
@@ -15,39 +14,93 @@ var LineChart = React.createClass({
 
   // recreate
   componentWillReceiveProps: function(nextProps) {
-    var chart = this.state.chart;
-    chart.destroy();
+    this._destroyChart();
     this._initializeChart(nextProps);
   },
 
   // destroy
   componentWillUnmount: function() {
-    var chart = this.state.chart;
-    chart.destroy();
+    this._destroyChart();
   },
 
-  // set state to a new instance of ChartJS
+  // create the chart
   _initializeChart: function(nextProps) {
-    var el = this.getDOMNode();
-    var ctx = el.getContext('2d');
-    var chartOptions = {
-      scaleShowGridLines: false,
-      pointDot: false
-    };
+    var data = nextProps.data;
 
-    var chart = new ChartJS(ctx).Line(nextProps.data, chartOptions);
+    // dimensions
+    var margin = {top: 80, right: 80, bottom: 80, left: 80};
+    var width = 800 - margin.right - margin.left;
+    var height = 400 - margin.top - margin.bottom;
 
-    this.setState({chart: chart});
+    // create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
+    data = [3, 6, 2, 7, 5, 2, 0, 3, 8, 9, 2, 5, 9, 3, 6, 3, 6, 2, 7, 5, 2, 1, 3, 8, 9, 2, 5, 9, 2, 7];
+
+    // X scale will fit all values from data[] within pixels 0-w
+    var x = d3.scale.linear().domain([0, data.length - 1]).range([0, width]);
+    // Y scale will fit values from 0-max within pixels h-0 (Note the inverted domain for the y-scale: bigger is up!)
+    var y = d3.scale.linear().domain([0, d3.max(data) * (6/5)]).range([height, 0]);
+
+    // create a line function that will convert data into x and y points
+    var line = d3.svg.line()
+      .interpolate('basis')
+      .x(function(data,i) {
+        return x(i);
+      })
+      .y(function(data) {
+        return y(data);
+      });
+
+    // create an area function that will fill below the x coordinates
+    var area = d3.svg.area()
+      .interpolate('basis')
+      .x(function(data,i) {
+        return x(i);
+      })
+      .y0(height)
+      .y1(function(data) {
+        return y(data);
+      });
+
+    // create x-axis
+    var xAxis = d3.svg.axis().scale(x).tickSubdivide(true);
+
+    // create y-axis
+    var yAxis = d3.svg.axis().scale(y).ticks(4).orient('left');
+
+    // add svg with dimensions
+    var graph = d3.select(this.getDOMNode()).append('svg:svg')
+      .attr('width', width + margin.right + margin.left)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('svg:g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+    // add the area
+    graph.append('svg:path')
+      .attr('class', 'area')
+      .attr('d', area(data));
+
+    // add the line
+    graph.append('svg:path').attr('d', line(data));
+
+    // add the x-axis.
+    graph.append('svg:g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(xAxis);
+
+    // add the y-axis
+    graph.append('svg:g')
+      .attr('class', 'y axis')
+      .call(yAxis);
+  },
+
+  _destroyChart: function() {
+    var el = this.getDOMNode().svg;
+    if (el) el.remove();
   },
 
   render: function() {
-    // set canvas size
-    var canvasProps = {
-      width: '800px',
-      height: '300px'
-    };
-
-    return React.createElement('canvas', canvasProps);
+    return <div className='linechart'/>;
   }
 });
 

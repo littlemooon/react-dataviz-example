@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "bluebird": "^2.9.6",
-    "chart.js": "^1.0.1",
+    "d3": "^3.5.5",
     "express": "^4.11.2",
     "immutable": "^3.6.2",
     "moment": "^2.9.0",
