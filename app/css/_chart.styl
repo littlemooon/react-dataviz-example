@@ -1,22 +1,17 @@
 
 path
-  stroke: $color-dark
-  stroke-width: 1
+  stroke-width: 0
   fill: none
 
 path.area
-  fill: $color-white
+  fill: lighten($color-dark, 50)
 
-.axis
-  shape-rendering: crispEdges
+.x.axis path, .y.axis path
+  display none
 
-.x.axis path, .x.axis line
+.y.axis line
   fill: none
-  stroke: $color-dark
-
-.y.axis path
-  fill: none
-  stroke: $color-dark
+  stroke: $color-light
 
 text
   font-size 0.5em

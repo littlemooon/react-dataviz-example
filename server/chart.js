@@ -39,7 +39,7 @@ var transformData = function(data) {
 // total data for each day
 var totalsByDay = function(data) {
     return R.foldl(function(acc, dataPoint) {
-    var day = moment(dataPoint.x, 'X').startOf('day').format("MM/DD/YY");
+    var day = moment(dataPoint.x, 'X').startOf('day');
 
     if (acc[day]) {
       acc[day].total = acc[day].total + dataPoint.y;

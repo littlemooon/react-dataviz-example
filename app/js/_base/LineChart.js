@@ -1,5 +1,6 @@
 
-var d3 = require('d3');
+var d3 = require('d3'),
+    R = require('ramda');
 
 var LineChart = React.createClass({
   displayName: 'LineChart',
@@ -8,7 +9,11 @@ var LineChart = React.createClass({
       React.PropTypes.shape({
         x: React.PropTypes.string,
         y: React.PropTypes.number
-      })).isRequired
+      })).isRequired,
+    range: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string
+    ])
   },
 
   // create
@@ -29,84 +34,86 @@ var LineChart = React.createClass({
 
   // create the chart
   _initializeChart: function(nextProps) {
-    var data = nextProps.data;
+    // props
+    var range = nextProps.range;
+    var data = R.slice(nextProps.data.length - 1 - range, nextProps.data.length -1, nextProps.data);
+
+    // date helper
+    var _date = function(d) { return new Date(d); };
 
     // dimensions
-    var margin = {top: 0, right: 60, bottom: 20, left: 60};
+    var margin = {top: 20, right: 60, bottom: 20, left: 60};
     var width = 800 - margin.right - margin.left;
-    var height = 400 - margin.top - margin.bottom;
+    var height = 360 - margin.top - margin.bottom;
 
-    // create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
-    // data = [3, 6, 2, 7, 5, 2, 0, 3, 8, 9, 2, 5, 9, 3, 6, 3, 6, 2, 7, 5, 2, 1, 3, 8, 9, 2, 5, 9, 2, 7];
-
-    // X scale will fit all values from data[] within pixels 0-w
-    // var x = d3.scale.linear().domain([0, data.length - 1]).range([0, width]);
+    // time series x axis
     var x = d3
       .time.scale()
-      .domain([new Date(data[0].x), d3.time.day.offset(new Date(data[data.length - 1].x), 1)])
+      .domain([_date(data[0].x), _date(data[data.length - 1].x)])
       .range([0, width]);
 
-    // Y scale will fit values from 0-max within pixels h-0 (Note the inverted domain for the y-scale: bigger is up!)
+    // linear series y axis
     var y = d3
       .scale.linear()
       .domain([0, d3.max(data, function(d){return d.y;}) * (6/5)])
       .range([height, 0]);
 
-    // create a line function that will convert data into x and y points
+    // line generator
     var line = d3.svg.line()
       .interpolate('basis')
       .x(function(d) {
-        return x(new Date(d.x));
+        return x(_date(d.x));
       })
       .y(function(d) {
         return y(d.y);
       });
 
-    // create an area function that will fill below the x coordinates
+    // area generator
     var area = d3.svg.area()
       .interpolate('basis')
       .x(function(d) {
-        return x(new Date(d.x));
+        return x(_date(d.x));
       })
       .y0(height)
       .y1(function(d) {
         return y(d.y);
       });
 
-    // create x-axis
+    // create axis
     var xAxis = d3.svg.axis().scale(x);
+    var yAxis = d3.svg.axis().scale(y).tickSize(-width).orient('left');
 
-    // create y-axis
-    var yAxis = d3.svg.axis().scale(y).ticks(6).orient('left');
-
-    // add svg with dimensions
+    // create svg
     var graph = d3.select(this.getDOMNode()).append('svg:svg')
       .attr('width', width + margin.right + margin.left)
       .attr('height', height + margin.top + margin.bottom)
       .append('svg:g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    // add the area
+    // add area
     graph.append('svg:path')
       .attr('class', 'area')
+      .attr('width', width)
+      .attr('height', height)
       .attr('d', area(data));
 
-    // add the line
-    graph.append('svg:path')
-      .attr('d', line(data));
-
-    // add the x-axis.
+    // add axis
     graph.append('svg:g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + height + ')')
       .call(xAxis);
-
-    // add the y-axis
     graph.append('svg:g')
       .attr('class', 'y axis')
       .call(yAxis);
+
+    // add line
+    graph.append('svg:path')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('d', line(data));
   },
 
+  // clear the node
   _destroyChart: function() {
     this.getDOMNode().innerHTML = '';
   },

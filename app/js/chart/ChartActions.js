@@ -2,7 +2,8 @@
 var Reflux = require('reflux');
 
 var ChartActions = Reflux.createActions([
-  'load'
+  'load',
+  'setRange'
 ]);
 
 module.exports = ChartActions;

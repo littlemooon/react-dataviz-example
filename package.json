@@ -4,9 +4,9 @@
   "description": "React - data visualisation example",
   "main": "app/js/App.js",
   "scripts": {
-    "start": "npm run dev | npm run serve",
-    "dev": "node webpackServer.js",
-    "serve": "node server.js"
+    "start": "npm run client | npm run server",
+    "client": "node webpackServer.js",
+    "server": "node server.js"
   },
   "dependencies": {
     "bluebird": "^2.9.6",

@@ -1,12 +1,12 @@
 
 var Reflux = require('reflux');
 
-var ChartActions = require('./ChartActions.js'),
-    ChartService = require('./ChartService.js');
+var ChartActions = require('../ChartActions.js'),
+    ChartService = require('../ChartService.js');
 
-var MapStoreMixin = require('../_utils/MapStoreMixin.js');
+var MapStoreMixin = require('../../_utils/MapStoreMixin.js');
 
-var ChartStore = Reflux.createStore({
+var ChartDataStore = Reflux.createStore({
   listenables: ChartActions,
   mixins: [MapStoreMixin],
 
@@ -36,4 +36,4 @@ var ChartStore = Reflux.createStore({
   }
 });
 
-module.exports = ChartStore;
+module.exports = ChartDataStore;

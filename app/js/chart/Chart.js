@@ -3,23 +3,29 @@ var Reflux = require('reflux');
 
 var ChartLoader = require('./ChartLoader'),
     ChartActions = require('./ChartActions'),
-    ChartStore = require('./ChartStore');
+    ChartDataStore = require('./stores/ChartDataStore'),
+    ChartRangeStore = require('./stores/ChartRangeStore');
 
 var LineChart = require('../_base/LineChart');
 
 var Chart = React.createClass({
   displayName: 'Chart',
   mixins: [
-    Reflux.connect(ChartStore, 'chartData')
+    Reflux.connect(ChartDataStore, 'chartData'),
+    Reflux.connect(ChartRangeStore, 'range')
   ],
 
   render: function() {
-    // render a fallback loader
+    // fallback loader
     var contents = (<ChartLoader/>);
 
-    // render the chart
+    // the chart
     if (this.state.chartData) {
-      contents = (<LineChart data={this.state.chartData}/>);
+      contents = (
+        <LineChart
+          data={this.state.chartData}
+          range={this.state.range}/>
+      );
     }
 
     return (

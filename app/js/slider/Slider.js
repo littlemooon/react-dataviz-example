@@ -1,37 +1,52 @@
 
 var Reflux = require('reflux');
 
+var ChartActions = require('../chart/ChartActions');
+
 var Slider = React.createClass({
   displayName: 'Slider',
+  mixins: [
+    React.addons.LinkedStateMixin
+  ],
 
   getInitialState: function() {
     return {
-      max: 10,
-      min: 1,
-      value: 10
+      max: 364,
+      value: 364
     };
   },
 
-  _onChange: function(e) {
-    this.setState({value: e.target.value});
+  _onChange: function(newValue) {
+    this.setState({
+      value: newValue
+    });
+    ChartActions.setRange(newValue);
   },
 
   // render a list item for each chart type
   render: function() {
+    var valueLink = {
+      value: this.state.value,
+      requestChange: this._onChange
+    };
+
     return (
       <div className='slider'>
         <p className='slider__label'>
-          No. of days into the past:
+          History for the last
         </p>
-        <p className='slider__value'>
+        <p className='slider__label'>
           {this.state.value}
+        </p>
+        <p className='slider__label'>
+          days
         </p>
         <input
           className='slider__input'
           type='range'
-          min={this.state.min}
+          min='2'
           max={this.state.max}
-          onChange={this._onChange}/>
+          valueLink={valueLink}/>
       </div>
     );
   }

@@ -1,7 +1,8 @@
 $font-text = "HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", "TeXGyreHerosRegular", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
 
 $color-white = #fff
-$color-light = #f8f8f8
+$color-light = #e7e7e7
+$color-background = #f8f8f8
 $color-dark = #2c3e50
 
 $width = 800px
@@ -11,11 +12,11 @@ html
   font-family $font-text
   font-size 18px
   color $color-dark
-  background-color $color-light
+  background-color $color-background
   line-height 1.5
 
 h1
-  margin 2em 0
+  margin 1.5em 0
 
 .container
   clearfix()
@@ -25,12 +26,12 @@ h1
 .selector
   display flex
   padding 0
-  margin 3em 0
+  margin 2em 0
 
 .selector__item, .selector__item--selected
   flex-grow 1
-  height 5em
-  line-height 5em
+  height 3em
+  line-height 3em
   text-align center
   list-style none
   transition all 0.3s
@@ -39,14 +40,20 @@ h1
 .selector__item--selected
   background-color $color-white
 
+.slider
+  overflow hidden
+
 .slider *
   float left
 
 .slider__label
-  margin-right: 1em
+  height
+
+.slider__label + .slider__label
+  margin-left: 0.5em
 
 .slider__input
-  height 3em
+  height 2em
   width 100%
   margin 0 0 3em 0
 
