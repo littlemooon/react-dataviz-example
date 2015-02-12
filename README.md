@@ -78,6 +78,6 @@ The Webpack, React-hot-loader and Express combination works correctly when execu
 
 Client-side bundling currently only supports a development environment. Production and test would need to be added.
 
-If growing the code set and introducing more components and features I would abstract many of the common patterns into 'base' components. I have created the open source React-Tree component. This is an example of a highly generic base component I use in a few projects.
+If growing the code set and introducing more components and features I would abstract many of the common patterns into 'base' components. I have created the open source [React-Tree](https://github.com/littlemooon/react-tree) component. This is an example of a highly generic base component I use in a few projects.
 
 With a bit more time I would have included the 6to5-loader and utilised ES6 as much as possible. This allows for more succinct, maintainable and yet readable code. Plus it is something I only wish to become more and more familiar with!
