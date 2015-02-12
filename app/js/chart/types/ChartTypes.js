@@ -1,6 +1,4 @@
 
-var R = require('ramda');
-
 var ChartTypeModel = require('./ChartTypeModel.js');
 
 // create the list of chart types
