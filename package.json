@@ -14,9 +14,11 @@
     "express": "^4.11.2",
     "immutable": "^3.6.2",
     "moment": "^2.9.0",
+    "nib": "^1.1.0",
     "ramda": "^0.9.1",
     "react": "^0.12.2",
     "reflux": "^0.2.5",
+    "stylus": "^0.54.5",
     "superagent": "^0.21.0",
     "superagent-bluebird-promise": "^0.6.0"
   },
