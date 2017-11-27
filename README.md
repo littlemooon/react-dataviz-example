@@ -8,6 +8,7 @@ Reflux has been used to provide a Flux implementation. State is stored using an 
 
 The client side build is provided by Webpack with React-hot-loader for real time updates to the browser.
 
+![screenshot-2017-11-27 react - data visualisation example](https://user-images.githubusercontent.com/2467416/33268428-7e0e7168-d37d-11e7-9cb1-ed29e8074eed.png)
 
 Get started:
 
